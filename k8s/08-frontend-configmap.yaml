@@ -9,10 +9,5 @@ metadata:
     tier : frontend
 
 data:
-   PORT : "3000"
-   DB_HOST : "mysql"
-   DB_PORT : "3306"
-   DB_NAME : "bijouterie_db"
-   SHOP_NAME : "bijouterie Zatadine "
-   CURRENCY : "FCFA"
-   MAX_FILE_SIZE_MB : "5"
+   BACKEND_URL: "http://backend:3000"
+   MAX_UPLOAD_SIZE : "6m"
