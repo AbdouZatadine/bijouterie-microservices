@@ -13,6 +13,6 @@ data:
    DB_HOST : "mysql" # ici on met le nom du service mysql, c'est comme ca que le backend trouve la base
    DB_PORT : "3306" # le port de mysql
    DB_NAME : "bijouterie_db" # le nom de la base, le meme que MYSQL_DATABASE dans le secret mysql
-   SHOP_NAME : "bijouterie Zatadine " # le nom de la boutique qu'on voit en haut du site
+   SHOP_NAME : "Maison d'Or" # le nom de la boutique 
    CURRENCY : "FCFA" # la monnaie affichee pour les prix
-   MAX_FILE_SIZE_MB : "5" # la taille max d'une photo en mo
+   MAX_FILE_SIZE_MB : "5" 
