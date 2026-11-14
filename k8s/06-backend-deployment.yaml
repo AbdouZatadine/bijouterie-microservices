@@ -1,18 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment # ici on a le deployment du backend, l'api node qui gere les bijoux
 metadata:
-  name: backend
+  name: backend # on l'appelle backend
   namespace: bijouterie
   labels:
     app: bijouterie
     tier: backend
 spec:
-  replicas: 2
+  replicas: 2 # on a 2 pods backend, si un tombe l'autre continue de repondre
   selector:
-    matchLabels:
+    matchLabels: # il gere les pods qui ont ces etiquettes
       app: bijouterie
       tier: backend
-  template:
+  template: # le modele des pods qu'il va creer
     metadata:
       labels:
         app: bijouterie
@@ -20,39 +20,39 @@ spec:
     spec:
       containers:
       - name: backend
-        image: zatadineabdou/bijouterie-backend:1
+        image: zatadineabdou/bijouterie-backend:1 # mon image sur docker hub avec le tag 1
         ports:
-        - containerPort: 3000
-        envFrom:                    
-        - configMapRef:             
+        - containerPort: 3000 # le backend ecoute sur le port 3000
+        envFrom: # avec envFrom on prend toutes les valeurs de la configmap d'un coup
+        - configMapRef:
             name: backend-config
-        env:
+        env: # ici avec valueFrom on prend les valeurs du secret une par une
         - name: DB_USER
           valueFrom:
             secretKeyRef:
-              name: backend-secret
-              key: DB_USER          
-        - name: DB_PASSWORD         
+              name: backend-secret # dans le secret backend-secret
+              key: DB_USER # on prend juste la cle DB_USER
+        - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: backend-secret
-              key: DB_PASSWORD
-        livenessProbe:
+              key: DB_PASSWORD # et ici la cle DB_PASSWORD
+        livenessProbe: # kubernetes verifie que le backend est vivant, sinon il redemarre le conteneur
           httpGet:
-            path: /api/health       
+            path: /api/health
             port: 3000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        readinessProbe:             
+          initialDelaySeconds: 10 # il attend 10 secondes avant de commencer a verifier
+          periodSeconds: 10 # puis il verifie toutes les 10 secondes
+        readinessProbe: # ici il verifie que le backend est pret, donc connecte a mysql, avant de lui envoyer des requetes
           httpGet:
             path: /api/ready
             port: 3000
           initialDelaySeconds: 5
           periodSeconds: 5
-        resources:                  
-          requests:
+        resources:
+          requests: # ce qu'il reserve au minimum
             cpu: 100m
             memory: 128Mi
-          limits:                  
+          limits: # le maximum qu'il peut prendre
             cpu: 500m
             memory: 256Mi

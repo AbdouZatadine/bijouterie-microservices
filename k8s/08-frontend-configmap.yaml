@@ -1,13 +1,13 @@
 apiVersion: v1
-kind: ConfigMap
+kind: ConfigMap # ici on a la configmap du frontend
 
 metadata:
-  name: frontend-config 
-  namespace : bijouterie 
-  labels : 
+  name: frontend-config # on l'appelle frontend-config
+  namespace : bijouterie
+  labels :
     app : bijouterie
-    tier : frontend
+    tier : frontend # elle concerne le frontend
 
 data:
-   BACKEND_URL: "http://backend:3000"
-   MAX_UPLOAD_SIZE : "6m"
+   BACKEND_URL: "http://backend:3000" # l'adresse du service backend, nginx y envoie toutes les requetes /api/
+   MAX_UPLOAD_SIZE : "6m" # la taille max qu'on peut envoyer, pour les photos

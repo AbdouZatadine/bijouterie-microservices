@@ -1,35 +1,35 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment # ici on a le deployment de mysql, c'est lui qui cree et surveille le pod de la base
 metadata:
-  name: mysql
-  namespace: bijouterie
+  name: mysql # on l'appelle mysql
+  namespace: bijouterie # on le met dans le namespace du projet
   labels:
     app: bijouterie
     tier: database
-spec: 
-  replicas: 1
+spec:
+  replicas: 1 # on a un seul pod mysql, et comme il n'y a pas de volume les donnees sont perdues si le pod est recree
   selector:
-    matchLabels:
+    matchLabels: # ici on dit quels pods il gere : ceux qui ont ces etiquettes
       app: bijouterie
       tier: database
-  template:
+  template: # c'est le modele des pods qu'il va creer
     metadata:
-      labels:
+      labels: # les pods auront ces etiquettes, les memes que dans matchLabels sinon ca marche pas
         app: bijouterie
         tier: database
     spec:
       containers:
       - name: mysql
-        image: zatadineabdou/bijouterie-mysql:1
+        image: zatadineabdou/bijouterie-mysql:1 # mon image sur docker hub avec le tag 1, pas latest
         ports:
-        - containerPort: 3306
-        envFrom:
-        - secretRef:                # ← espace après le tiret + "secretRef" (pas "secreteRef")
-            name: mysql-secret      # ← décalé sous secretRef
+        - containerPort: 3306 # mysql ecoute sur le port 3306 dans le conteneur
+        envFrom: # avec envFrom on recupere toutes les valeurs du secret d'un coup
+        - secretRef:
+            name: mysql-secret # le secret qu'on a cree dans le fichier 01
         resources:
-          requests:
+          requests: 
             memory: "256Mi"
             cpu: "250m"
-          limits:                   # ← "limits" (pas "limite")
-            memory: "1Gi"           # ← rangés SOUS limits,
-            cpu: "500m"             #   comme sous requests
+          limits: 
+            memory: "1Gi"
+            cpu: "500m"

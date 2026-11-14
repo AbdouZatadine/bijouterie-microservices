@@ -1,17 +1,17 @@
 apiVersion: v1
-kind: Service
+kind: Service # ici on a le service de mysql, il donne une adresse fixe pour joindre la base
 metadata:
-  name: mysql
-  namespace : bijouterie 
+  name: mysql # on l'appelle mysql, le backend joint la base avec ce nom grace au dns du cluster
+  namespace : bijouterie
   labels:
-    app: bijouterie 
-    tier : database 
+    app: bijouterie
+    tier : database
 spec:
-  type : ClusterIP 
-  selector:
+  type : ClusterIP # la base est joignable seulement dans le cluster, pas depuis l'exterieur
+  selector: # ici on dit vers quels pods il envoie : ceux de mysql
     app: bijouterie
     tier: database
-  ports : 
-  - protocol : TCP 
-    port : 3306 
-    targetPort : 3306 
+  ports :
+  - protocol : TCP
+    port : 3306 # le port du service
+    targetPort : 3306 # le port du conteneur mysql ou il renvoie

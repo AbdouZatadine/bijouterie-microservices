@@ -1,18 +1,18 @@
 apiVersion: v1
-kind: ConfigMap
+kind: ConfigMap # ici on a une configmap, on y met les reglages qui ne sont pas sensibles
 
 metadata:
-  name: backend-config 
-  namespace : bijouterie 
-  labels : 
+  name: backend-config # on l'appelle backend-config, le deployment backend la retrouve avec ce nom
+  namespace : bijouterie
+  labels :
     app : bijouterie
-    tier : backend
+    tier : backend # elle concerne le backend
 
 data:
-   PORT : "3000"
-   DB_HOST : "mysql"
-   DB_PORT : "3306"
-   DB_NAME : "bijouterie_db"
-   SHOP_NAME : "bijouterie Zatadine "
-   CURRENCY : "FCFA"
-   MAX_FILE_SIZE_MB : "5"
+   PORT : "3000" # le port ou le backend ecoute
+   DB_HOST : "mysql" # ici on met le nom du service mysql, c'est comme ca que le backend trouve la base
+   DB_PORT : "3306" # le port de mysql
+   DB_NAME : "bijouterie_db" # le nom de la base, le meme que MYSQL_DATABASE dans le secret mysql
+   SHOP_NAME : "bijouterie Zatadine " # le nom de la boutique qu'on voit en haut du site
+   CURRENCY : "FCFA" # la monnaie affichee pour les prix
+   MAX_FILE_SIZE_MB : "5" # la taille max d'une photo en mo

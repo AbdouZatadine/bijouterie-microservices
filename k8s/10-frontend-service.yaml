@@ -1,19 +1,18 @@
 apiVersion: v1
-kind: Service
+kind: Service # ici on a le service du frontend, c'est par lui que le navigateur arrive sur le site
 metadata:
-  name: frontend
-  namespace : bijouterie 
+  name: frontend # on l'appelle frontend
+  namespace : bijouterie
   labels:
-    app: bijouterie 
+    app: bijouterie
     tier : frontend
 spec:
-  type : NodePort
-  selector:
+  type : NodePort # nodeport ouvre un port sur la machine, donc on peut ouvrir le site depuis le navigateur
+  selector: # il envoie vers les pods frontend
     app: bijouterie
     tier: frontend
-  ports : 
-  - protocol : TCP 
-    port : 80
-    targetPort : 80 
-    
-    nodePort: 30080
+  ports :
+  - protocol : TCP
+    port : 80 # le port du service
+    targetPort : 80 # le port de nginx dans le pod
+    nodePort: 30080 # le port ouvert sur la machine, on va sur http://localhost:30080

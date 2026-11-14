@@ -1,17 +1,17 @@
 apiVersion: v1
-kind: Service
+kind: Service # ici on a le service du backend, il donne une adresse fixe pour joindre les 2 pods
 metadata:
-  name: backend
-  namespace : bijouterie 
+  name: backend # on l'appelle backend, le frontend l'appelle avec http://backend:3000
+  namespace : bijouterie
   labels:
-    app: bijouterie 
+    app: bijouterie
     tier : backend
 spec:
-  type : ClusterIP 
-  selector:
+  type : ClusterIP # joignable seulement dans le cluster, le navigateur passe par le frontend
+  selector: # il envoie vers les pods backend et repartit les requetes entre les 2
     app: bijouterie
-    tier: backend 
-  ports : 
-  - protocol : TCP 
-    port : 3000
-    targetPort : 3000
+    tier: backend
+  ports :
+  - protocol : TCP
+    port : 3000 # le port du service
+    targetPort : 3000 # le port du conteneur backend

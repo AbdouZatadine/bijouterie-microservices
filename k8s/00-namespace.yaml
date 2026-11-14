@@ -1,7 +1,7 @@
-apiVersion : v1 
-kind: Namespace 
-metadata : 
-  name : bijouterie 
-  labels : 
-     app: bijouterie 
-     
+
+apiVersion : v1
+kind: Namespace
+metadata :
+  name : bijouterie # l nom du namespace qui sera utilisé par toutes les ressources du projet
+  labels :
+     app: bijouterie # label commun a tout le projet

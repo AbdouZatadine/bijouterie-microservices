@@ -1,18 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment # ici on a le deployment du frontend, le site web avec nginx
 metadata:
-  name: frontend
+  name: frontend # on l'appelle frontend
   namespace: bijouterie
   labels:
     app: bijouterie
     tier: frontend
 spec:
-  replicas: 2
+  replicas: 2 # on a 2 pods frontend
   selector:
-    matchLabels:
+    matchLabels: # il gere les pods qui ont ces etiquettes
       app: bijouterie
       tier: frontend
-  template:
+  template: # le modele des pods qu'il va creer
     metadata:
       labels:
         app: bijouterie
@@ -20,28 +20,28 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: zatadineabdou/bijouterie-frontend:1
+        image: zatadineabdou/bijouterie-frontend:1 # mon image sur docker hub avec le tag 1
         ports:
-        - containerPort: 80
-        envFrom:                    
-        - configMapRef:             
+        - containerPort: 80 # nginx ecoute sur le port 80
+        envFrom: # on prend toutes les valeurs de la configmap, ici pas besoin de secret
+        - configMapRef:
             name: frontend-config
-        livenessProbe:
+        livenessProbe: # kubernetes verifie que nginx est vivant
           httpGet:
-            path: /healthz      
+            path: /healthz # c'est la route de sante de nginx
             port: 80
           initialDelaySeconds: 10
           periodSeconds: 10
-        readinessProbe:             
+        readinessProbe: # et ici qu'il est pret a recevoir des visiteurs
           httpGet:
             path: /healthz
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
-        resources:                  
-          requests:
+        resources:
+          requests: # ce qu'il reserve au minimum
             cpu: 100m
             memory: 128Mi
-          limits:                  
+          limits: # le maximum qu'il peut prendre
             cpu: 500m
             memory: 256Mi
