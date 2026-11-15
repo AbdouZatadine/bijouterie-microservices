@@ -32,5 +32,21 @@ pipeline {
                 bat "docker tag bijouterie-mysql:${BUILD_NUMBER} zatadineabdou/bijouterie-mysql:latest"
             }
         }
+        
+        // etape 4 : on se connecte a docker hub avec le token du coffre-fort, puis on envoie les images
+        stage('Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    bat 'echo %DOCKER_PASS%| docker login -u %DOCKER_USER% --password-stdin'
+                    bat "docker push zatadineabdou/bijouterie-frontend:${BUILD_NUMBER}"
+                    bat "docker push zatadineabdou/bijouterie-frontend:latest"
+                    bat "docker push zatadineabdou/bijouterie-backend:${BUILD_NUMBER}"
+                    bat "docker push zatadineabdou/bijouterie-backend:latest"
+                    bat "docker push zatadineabdou/bijouterie-mysql:${BUILD_NUMBER}"
+                    bat "docker push zatadineabdou/bijouterie-mysql:latest"
+                    bat 'docker logout'
+                }
+            }
+        }
     }
 }
