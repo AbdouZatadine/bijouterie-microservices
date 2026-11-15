@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: zatadineabdou/bijouterie-mysql:1 # mon image sur docker hub avec le tag 1, pas latest
+        image: zatadineabdou/bijouterie-mysql:7 # mon image sur docker hub avec le tag 7, pas latest
         ports:
         - containerPort: 3306 # mysql ecoute sur le port 3306 dans le conteneur
         envFrom: # avec envFrom on recupere toutes les valeurs du secret d'un coup

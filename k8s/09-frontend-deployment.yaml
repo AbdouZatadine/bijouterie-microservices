@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: zatadineabdou/bijouterie-frontend:1 # mon image sur docker hub avec le tag 1
+        image: zatadineabdou/bijouterie-frontend:7 # mon image sur docker hub avec le tag 7
         ports:
         - containerPort: 80 # nginx ecoute sur le port 80
         envFrom: # on prend toutes les valeurs de la configmap, ici pas besoin de secret

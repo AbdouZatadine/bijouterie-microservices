@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: zatadineabdou/bijouterie-backend:1 # mon image sur docker hub avec le tag 1
+        image: zatadineabdou/bijouterie-backend:7 # mon image sur docker hub avec le tag 7
         ports:
         - containerPort: 3000 # le backend ecoute sur le port 3000
         envFrom: # avec envFrom on prend toutes les valeurs de la configmap d'un coup
